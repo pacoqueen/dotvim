@@ -27,7 +27,7 @@ set smarttab
 set smartindent
 set expandtab
 " Números de línea, sí, por favor:
-set nu
+set number
 " Ancho de 80 columnas es lo suyo:
 set colorcolumn=80
 
@@ -53,6 +53,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'xolox/vim-session'
     "vim-misc: Necesario para vim-session
     Plug 'xolox/vim-misc'
+    "ultisnips: snippets
+    Plug 'SirVer/ultisnips'
+    "vim-snippets: algunos snippets "precocinados"
+    Plug 'honza/vim-snippets'
 call plug#end()
 
 " Fuente para soportar los símbolos de airlne
@@ -73,3 +77,9 @@ match OverLength /\%>80v.\+/
 
 " No quiero fichero .netrwhist (historial de rutas de red de un plugin)
 let g:netrw_dirhistmax = 0
+
+" Sesiones en código Geotexan, que es donde lo necesito actualmente:
+let g:session_directory = '~/Geotexan/src/ginn'
+let g:session_default_to_last = 1
+let g:session_autosave = 'yes'
+let g:session_autoload = 'yes'
