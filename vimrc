@@ -26,6 +26,10 @@ set shiftwidth=4
 set smarttab
 set smartindent
 set expandtab
+" Números de línea, sí, por favor:
+set nu
+" Ancho de 80 columnas es lo suyo:
+set colorcolumn=80
 
 " Plugins (vim-plug)
 call plug#begin('~/.vim/plugged')
@@ -41,8 +45,14 @@ call plug#begin('~/.vim/plugged')
 
     "airline: lean & mean status/tabline for vim that's light as air
     Plug 'vim-airline/vim-airline'
-    " ctrlp: fuzzy file search
+    "ctrlp: fuzzy file search
     Plug 'ctrlpvim/ctrlp.vim'
+    "sierra: A (dark) Vim Colorscheme
+    Plug 'AlessandroYorba/Sierra'
+    "vim-session: Extended session management for Vim (:mksession on steroids)
+    Plug 'xolox/vim-session'
+    "vim-misc: Necesario para vim-session
+    Plug 'xolox/vim-misc'
 call plug#end()
 
 " Fuente para soportar los símbolos de airlne
@@ -53,9 +63,13 @@ set guifont=Monaco\ for\ Powerline\ 10
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
-" Sesiones en código Geotexan, que es donde lo necesito actualmente:
-let g:session_directory = '~/Geotexan/src/ginn'
-let g:session_default_to_last = 1
-let g:session_autosave = 1
-let g:session_autoload = 1
+" Opciones para el colorscheme Sierra
+let g:sierra_Twilight = 1
+colorscheme sierra
 
+" Color diferente a partir de la columna 80
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%>80v.\+/
+
+" No quiero fichero .netrwhist (historial de rutas de red de un plugin)
+let g:netrw_dirhistmax = 0
