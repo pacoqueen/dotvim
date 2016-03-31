@@ -57,14 +57,16 @@ call plug#begin('~/.vim/plugged')
     Plug 'SirVer/ultisnips'
     "vim-snippets: algunos snippets "precocinados". Por defecto: <tab, ^j, ^k>
     Plug 'honza/vim-snippets'
-    "vim-flake8: syntax and style (PEP8) checker. Por defecto: <F7>
-    Plug 'nvie/vim-flake8'
     "rainbow: Rainbow Parentheses Improved
     Plug 'luochen1990/rainbow'
     "YouCompleteMe: Dudaba entre YCM y jedi-vim. YCM no necesita teclas.
     Plug 'Valloric/YouCompleteMe'
     "supertab: Para evitar que YCM capture el tab de UltiSnips
     Plug 'ervandew/supertab'
+    "vim-flake8: syntax and style (PEP8) checker. Por defecto: <F7>
+    "Plug 'nvie/vim-flake8'
+    "syntastic: No redimiensiona ventanas como el vim-flake8
+    Plug 'scrooloose/syntastic'
 call plug#end()
 
 " Fuente para soportar los símbolos de airlne
@@ -94,6 +96,9 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" Avisos de flake8 en el lateral también:
+"let g:flake8_show_in_glutter = 1
 
 " Color diferente a partir de la columna 80
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
