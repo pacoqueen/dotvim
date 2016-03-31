@@ -55,8 +55,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'xolox/vim-misc'
     "ultisnips: snippets
     Plug 'SirVer/ultisnips'
-    "vim-snippets: algunos snippets "precocinados"
+    "vim-snippets: algunos snippets "precocinados". <tab, ^j, ^k>
     Plug 'honza/vim-snippets'
+    "vim-flake8: syntax and style (PEP8) checker. <F7>
+    Plug 'nvie/vim-flake8'
 call plug#end()
 
 " Fuente para soportar los símbolos de airlne

@@ -14,4 +14,7 @@ ln -s ~/.vim/vimrc ~/.vimrc
 echo "Instalando plugins..."
 vim +PlugInstall +qall
 
+echo "Instalando dependencias..."
+sudo apt-get install flake8
+
 echo "Fin"
