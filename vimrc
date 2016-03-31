@@ -59,6 +59,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'honza/vim-snippets'
     "vim-flake8: syntax and style (PEP8) checker. <F7>
     Plug 'nvie/vim-flake8'
+    "rainbow: Rainbow Parentheses Improved
+    Plug 'luochen1990/rainbow'
+    "YouCompleteMe: Dudaba entre YCM y jedi-vim. YCM no necesita teclas.
+    Plug 'Valloric/YouCompleteMe'
 call plug#end()
 
 " Fuente para soportar los símbolos de airlne
@@ -77,8 +81,11 @@ colorscheme sierra
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%>80v.\+/
 
-" No quiero fichero .netrwhist (historial de rutas de red de un plugin)
+" No quiero fichero .netrwhist (historial de rutas de red de algún plugin)
 let g:netrw_dirhistmax = 0
+
+" Paréntesis de colores sin tener que activarlo con RainbowToggle
+let g:rainbow_active = 1
 
 " Sesiones en código Geotexan, que es donde lo necesito actualmente:
 let g:session_directory = '~/Geotexan/src/ginn'
