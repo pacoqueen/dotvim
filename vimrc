@@ -55,14 +55,16 @@ call plug#begin('~/.vim/plugged')
     Plug 'xolox/vim-misc'
     "ultisnips: snippets
     Plug 'SirVer/ultisnips'
-    "vim-snippets: algunos snippets "precocinados". <tab, ^j, ^k>
+    "vim-snippets: algunos snippets "precocinados". Por defecto: <tab, ^j, ^k>
     Plug 'honza/vim-snippets'
-    "vim-flake8: syntax and style (PEP8) checker. <F7>
+    "vim-flake8: syntax and style (PEP8) checker. Por defecto: <F7>
     Plug 'nvie/vim-flake8'
     "rainbow: Rainbow Parentheses Improved
     Plug 'luochen1990/rainbow'
     "YouCompleteMe: Dudaba entre YCM y jedi-vim. YCM no necesita teclas.
     Plug 'Valloric/YouCompleteMe'
+    "supertab: Para evitar que YCM capture el tab de UltiSnips
+    Plug 'ervandew/supertab'
 call plug#end()
 
 " Fuente para soportar los símbolos de airlne
@@ -77,15 +79,25 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:sierra_Twilight = 1
 colorscheme sierra
 
-" Color diferente a partir de la columna 80
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%>80v.\+/
-
 " No quiero fichero .netrwhist (historial de rutas de red de algún plugin)
 let g:netrw_dirhistmax = 0
 
 " Paréntesis de colores sin tener que activarlo con RainbowToggle
 let g:rainbow_active = 1
+
+" Hacer que YCM sea compatible con UltiSnips usando supertab
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" Mejores teclas para UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" Color diferente a partir de la columna 80
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%>80v.\+/
 
 " Sesiones en código Geotexan, que es donde lo necesito actualmente:
 let g:session_directory = '~/Geotexan/src/ginn'
