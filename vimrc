@@ -67,6 +67,8 @@ call plug#begin('~/.vim/plugged')
     "Plug 'nvie/vim-flake8'
     "syntastic: No redimiensiona ventanas como el vim-flake8
     Plug 'scrooloose/syntastic'
+    "vim-autopep8: Necesita tener instalado python-autopep8. Pordefecto: <F8>
+    Plug 'tell-k/vim-autopep8'
 call plug#end()
 
 " Fuente para soportar los símbolos de airlne

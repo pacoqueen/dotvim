@@ -15,6 +15,6 @@ echo "Instalando plugins..."
 vim +PlugInstall +qall
 
 echo "Instalando dependencias..."
-sudo apt-get install flake8
+sudo apt-get install flake8 python-autopep8 python-pep8
 
 echo "Fin"

@@ -13,7 +13,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Esto es para ignorar los errores de imports que no están al principio.
-let g:syntastic_python_checker_args = '--ignore=E402'
+let g:syntastic_python_flake8_args = '--ignore=E402'
 
 " Eliminar los espacios a final de línea para cumplir PEP8
 autocmd BufWritePre * :%s/\s\+$//e
