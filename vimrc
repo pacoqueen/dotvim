@@ -67,10 +67,12 @@ call plug#begin('~/.vim/plugged')
     "Plug 'nvie/vim-flake8'
     "syntastic: No redimiensiona ventanas como el vim-flake8
     Plug 'scrooloose/syntastic'
-    "vim-autopep8: Necesita tener instalado python-autopep8. Pordefecto: <F8>
+    "vim-autopep8: Necesita tener instalado python-autopep8. Por defecto: <F8>
     Plug 'tell-k/vim-autopep8'
     "vim-signature: plugin para poner y ver las marcas. <mx, dmx, m,, m., ...>
     Plug 'kshenoy/vim-signature'
+    "tagbar: Class-browser para python. Por defecto: <F8>
+    Plug 'majutsushi/tagbar'
 call plug#end()
 
 " Fuente para soportar los símbolos de airlne
@@ -103,6 +105,9 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " Avisos de flake8 en el lateral también:
 "let g:flake8_show_in_glutter = 1
+
+" F9 para la lista de clases
+nnoremap <silent> <F9> :TagbarToggle<CR>
 
 " Color diferente a partir de la columna 80
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
