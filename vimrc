@@ -106,8 +106,9 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " Avisos de flake8 en el lateral también:
 "let g:flake8_show_in_glutter = 1
 
-" F9 para la lista de clases
+" F9 para la lista de clases y a la izquierda
 nnoremap <silent> <F9> :TagbarToggle<CR>
+let g:tagbar_left = 1
 
 " Color diferente a partir de la columna 80
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
