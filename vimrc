@@ -71,7 +71,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tell-k/vim-autopep8'
     "vim-signature: plugin para poner y ver las marcas. <mx, dmx, m,, m., ...>
     Plug 'kshenoy/vim-signature'
-    "tagbar: Class-browser para python. Por defecto: <F8>
+    "tagbar: Class-browser para python. Por defecto: <F8>, cambiado a <F9>
     Plug 'majutsushi/tagbar'
     "vim-sensible: A universal set of defaults that everyone can agree on.
     Plug 'tpope/vim-sensible'
