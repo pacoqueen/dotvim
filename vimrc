@@ -17,7 +17,8 @@ syntax on
 set backupdir=~/.vim/backup/,/tmp
 set directory=~/.vim/swap/,/tmp
 set undodir=~/.vim/undo,/tmp
-" Ver la tecla "leader" a la derecha de la línea de comandos cuando es pulsada:
+" Ver la tecla "leader" (\) a la derecha de la línea de comandos cuando 
+" es pulsada:
 set showcmd
 " Tabulador=4 espacios, indentación también:
 set sw=4
@@ -75,19 +76,34 @@ call plug#begin('~/.vim/plugged')
     Plug 'majutsushi/tagbar'
     "vim-sensible: A universal set of defaults that everyone can agree on.
     Plug 'tpope/vim-sensible'
+    " colorscheme kalisi
+    Plug 'freeo/vim-kalisi'
+    " colorscheme SummerFruit
+    Plug 'vim-scripts/summerfruit256.vim'
+    " vim-virtualenv:  Vim plugin for working with python virtualenvs
+    Plug 'jmcantrell/vim-virtualenv'
+    " django-plus.vim: Sintaxis templates django, completion, etc.
+    Plug 'tweekmonster/django-plus.vim'
+    " colorscheme Solarized
+    Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 " Fuente para soportar los símbolos de airlne
 let g:airline_powerline_fonts = 1
-set guifont=Monaco\ for\ Powerline\ 10
+"set guifont=Monaco\ for\ Powerline\ 10
+set guifont=Menlo\ for\ Powerline\ 10
 
 " Ctrl+P para... bueno, ctrlp. Je.
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 " Opciones para el colorscheme Sierra
-let g:sierra_Twilight = 1
-colorscheme sierra
+"let g:sierra_Twilight = 1
+"colorscheme sierra
+"colorscheme kalisi
+colorscheme solarized
+"set background=dark
+set background=light
 
 " No quiero fichero .netrwhist (historial de rutas de red de algún plugin)
 let g:netrw_dirhistmax = 0
@@ -121,3 +137,16 @@ let g:session_directory = '~/Geotexan/src/ginn'
 let g:session_default_to_last = 1
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
+
+" Para que el Syntastic no proteste con código python3 parseándolo como
+" python2
+let g:syntastic_python_checkers=['pylint'] 
+let g:syntastic_python_python_exec = 'python' 
+let g:syntastic_python_pylint_exe = 'python -m pylint'
+" Y para que el alto de la lista de errores sea menor
+let g:syntastic_loc_list_height=4
+
+" Por si se cambia el vimrc **después** de haber creado la sesión, que ésta no
+" siga usando valores antiguos.
+set ssop-=options    " do not store global and local values in a session
+set ssop-=folds      " do not store folds
