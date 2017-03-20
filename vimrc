@@ -150,3 +150,8 @@ let g:syntastic_loc_list_height=4
 " siga usando valores antiguos.
 set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
+
+" Si hasta la CIA lo usa... Si no tengo permisos para guardar, lo hago como
+" root
+cmap w!! w !sudo tee % > /dev/null
+

@@ -5,3 +5,6 @@ plugged/*
 backup
 swap
 undo
+
+# Copias de seguridad y tal
+autoload/*.old
