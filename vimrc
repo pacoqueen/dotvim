@@ -86,6 +86,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'tweekmonster/django-plus.vim'
     " colorscheme Solarized
     Plug 'altercation/vim-colors-solarized'
+    " vim-searchindex: Para resaltar todos los resultados al buscar y el total.
+    Plug 'google/vim-searchindex'
+
 call plug#end()
 
 " Fuente para soportar los símbolos de airlne
