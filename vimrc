@@ -158,3 +158,8 @@ set ssop-=folds      " do not store folds
 " root
 cmap w!! w !sudo tee % > /dev/null
 
+" Con algunos ficheros de proyectos grandes se atasca demasiado el Syntastic
+" al guardar, así que empiezo con Syntastic desactivado y con <F6> lo activo 
+" y desactivo:
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <F6> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
