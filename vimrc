@@ -163,3 +163,14 @@ cmap w!! w !sudo tee % > /dev/null
 " y desactivo:
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <F12> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+
+" Cuando quiero ver un fichero con más espacio, en vez de hacer un :only
+" para que el buffer ocupe toda la ventana, lo abro en una nueva pestaña
+" y la cierro cuando termino:
+nnoremap t. :tabedit %<cr>
+nnoremap tc :tabclose<cr>
+
+" Si intento abrir un fichero que ya está en otra instancia, pasa el foco a 
+" esa instancia:
+:packadd! editexisting
+
