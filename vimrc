@@ -17,9 +17,11 @@ syntax on
 set backupdir=~/.vim/backup/,/tmp
 set directory=~/.vim/swap/,/tmp
 set undodir=~/.vim/undo,/tmp
-" Ver la tecla "leader" (\) a la derecha de la línea de comandos cuando 
+" Ver la tecla "leader" (\) a la derecha de la línea de comandos cuando
 " es pulsada:
 set showcmd
+" Borrar el resaltado de la última búsqueda hasta que volvamos a buscar:
+nnoremap <Leader>/ :nohlsearch<CR>
 " Tabulador=4 espacios, indentación también:
 set sw=4
 set tabstop=4
@@ -67,7 +69,9 @@ call plug#begin('~/.vim/plugged')
     "vim-flake8: syntax and style (PEP8) checker. Por defecto: <F7>
     "Plug 'nvie/vim-flake8'
     "syntastic: No redimiensiona ventanas como el vim-flake8
-    Plug 'scrooloose/syntastic'
+    "Plug 'scrooloose/syntastic'
+    "AsynchronousLintEngine: Al final el syntastic no me va con python3
+    Plug 'w0rp/ale'
     "vim-autopep8: Necesita tener instalado python-autopep8. Por defecto: <F8>
     Plug 'tell-k/vim-autopep8'
     "vim-signature: plugin para poner y ver las marcas. <mx, dmx, m,, m., ...>
@@ -88,6 +92,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'altercation/vim-colors-solarized'
     " vim-searchindex: Para resaltar todos los resultados al buscar y el total.
     Plug 'google/vim-searchindex'
+    " editorconfig-vim: Se está poniendo de moda el [.editorconfig](http://editorconfig.org)
+    Plug 'editorconfig/editorconfig-vim'
+    " isort: Organiza los imports en python para ordenarlos correctamente.
+    Plug 'fisadev/vim-isort'
 
 call plug#end()
 
@@ -132,8 +140,8 @@ nnoremap <silent> <F9> :TagbarToggle<CR>
 let g:tagbar_left = 1
 
 " Color diferente a partir de la columna 80
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%>80v.\+/
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%>80v.\+/
 
 " Sesiones en código Geotexan, que es donde lo necesito actualmente:
 let g:session_directory = '~/Geotexan/src/ginn'
@@ -143,11 +151,11 @@ let g:session_autoload = 'yes'
 
 " Para que el Syntastic no proteste con código python3 parseándolo como
 " python2
-let g:syntastic_python_checkers=['pylint'] 
-let g:syntastic_python_python_exec = 'python' 
-let g:syntastic_python_pylint_exe = 'python -m pylint'
+"let g:syntastic_python_checkers=['pylint']
+"let g:syntastic_python_python_exec = 'python'
+"let g:syntastic_python_pylint_exe = 'python -m pylint'
 " Y para que el alto de la lista de errores sea menor
-let g:syntastic_loc_list_height=4
+"let g:syntastic_loc_list_height=4
 
 " Por si se cambia el vimrc **después** de haber creado la sesión, que ésta no
 " siga usando valores antiguos.
@@ -159,10 +167,38 @@ set ssop-=folds      " do not store folds
 cmap w!! w !sudo tee % > /dev/null
 
 " Con algunos ficheros de proyectos grandes se atasca demasiado el Syntastic
-" al guardar, así que empiezo con Syntastic desactivado y con <F12> lo activo 
+" al guardar, así que empiezo con Syntastic desactivado y con <F12> lo activo
 " y desactivo:
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-nnoremap <F12> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+"nnoremap <F12> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+
+" Asynchronous Lint Engine
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
+" Set this if you want to.
+" This can be useful if you are combining ALE with
+" some other plugin which sets quickfix errors, etc.
+let g:ale_keep_list_window_open = 1
+let g:ale_list_window_size = 4
+" Dejo el F12 para ALE (:ALELint para ejecutar manualmente, :ALEToggle para
+" cambiar). Lo usaré para navegar por la QuickFix (:copen :cclose :cn :cp)
+nnoremap <F12> :ALEToggleBuffer<CR>:redraw<CR>:sleep 100m<CR>:cwindow<CR>
+nnoremap <A-F12> :ALELint<CR>
+nnoremap <expr> <silent> <S-F12> (&diff ? "]c" : ":cprev\<CR>")
+nnoremap <expr> <silent> <C-F12> (&diff ? "[c" : ":cnext\<CR>")
+" Python3 por defecto de una vez, para flake y pylint
+" let g:ale_linters = { 'python': ['flake8', ], }
+let g:ale_python_flake8_executable = 'python3'   " or 'python' for Python 2
+let g:ale_python_flake8_options = '-m flake8'
+let g:ale_python_flake8_use_global = 1
+let g:ale_python_pylint_executable = 'python3'
+let g:ale_python_pylint_options = '-m pylint'
+let g:ale_python_pylint_use_global = 1
+" Python3 para isort también. Marcar en visual y Ctrl+I para reordenar
+" automáticamente o ejecutar :Isort
+let g:vim_isort_python_version = 'python3'
+let g:vim_isort_map = '<C-i>'
 
 " Cuando quiero ver un fichero con más espacio, en vez de hacer un :only
 " para que el buffer ocupe toda la ventana, lo abro en una nueva pestaña
@@ -170,7 +206,13 @@ nnoremap <F12> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 nnoremap t. :tabedit %<cr>
 nnoremap tc :tabclose<cr>
 
-" Si intento abrir un fichero que ya está en otra instancia, pasa el foco a 
+" Si intento abrir un fichero que ya está en otra instancia, pasa el foco a
 " esa instancia:
 :packadd! editexisting
 
+" Si la ventana de quickfix está abierta al salir y es la única que queda,
+" cerrarla automáticamente.
+aug QFClose
+  au!
+  au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+aug END
