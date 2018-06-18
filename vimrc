@@ -96,6 +96,14 @@ call plug#begin('~/.vim/plugged')
     Plug 'editorconfig/editorconfig-vim'
     " isort: Organiza los imports en python para ordenarlos correctamente.
     Plug 'fisadev/vim-isort'
+    " PlugInstall and PlugUpdate will clone fzf in ~/.fzf and run install script
+    " ...Y algunos comandos ya precocinados: Files, GFiles, GFiles?, Buffers,
+    " Colors, Ag, Lines, BLines, Tags, BTags, Marks... ^t, ^x y ^v para abrir
+    " en nuevo tab, split o vertical. Ver https://github.com/junegunn/fzf.vim
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+    " Mesonic para sintaxis, :MesonInit, :make, errores en quickfix...
+    Plug 'igankevich/mesonic'
 
 call plug#end()
 
@@ -112,7 +120,8 @@ let g:ctrlp_cmd = 'CtrlP'
 "let g:sierra_Twilight = 1
 "colorscheme sierra
 "colorscheme kalisi
-colorscheme solarized
+"colorscheme solarized
+colorscheme summerfruit256
 "set background=dark
 set background=light
 
