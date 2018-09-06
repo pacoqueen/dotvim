@@ -34,7 +34,9 @@ set number
 " Ancho de 80 columnas es lo suyo:
 set colorcolumn=80
 
-" Plugins (vim-plug)
+" ----------------------
+"   Plugins (vim-plug)
+" ----------------------
 call plug#begin('~/.vim/plugged')
     " https://github.com/junegunn/vim-plug
     " Brief help
@@ -104,7 +106,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf.vim'
     " Mesonic para sintaxis, :MesonInit, :make, errores en quickfix...
     Plug 'igankevich/mesonic'
-
+    " fugitive para :Gdiff [revision] y ver qué ha cambiado respecto a
+    " anteriores commits
+    Plug 'tpope/vim-fugitive'
+    " Mejor sintaxis para markdown
+    Plug 'gabrielelana/vim-markdown'
+    " Markdown Preview para vista previa del render en el navegador
+    Plug 'iamcco/markdown-preview.vim'
 call plug#end()
 
 " Fuente para soportar los símbolos de airlne
@@ -225,3 +233,10 @@ aug QFClose
   au!
   au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
 aug END
+
+" Ctrl+Alt+M para previsualizar, como en MarkdownHere
+nmap <silent> <C-A-m> <Plug>MarkdownPreview        " for normal mode
+imap <silent> <C-A-m> <Plug>MarkdownPreview        " for insert mode
+" Para parar o cerrar la previsualización
+"nmap <silent> <F9> <Plug>StopMarkdownPreview    " for normal mode
+"imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
