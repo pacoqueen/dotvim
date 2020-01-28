@@ -92,6 +92,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'tweekmonster/django-plus.vim'
     " colorscheme Solarized
     Plug 'altercation/vim-colors-solarized'
+    " colorscheme Night Owl (tema oscuro)
+    Plug 'haishanh/night-owl.vim'
     " vim-searchindex: Para resaltar todos los resultados al buscar y el total.
     Plug 'google/vim-searchindex'
     " editorconfig-vim: Se está poniendo de moda el [.editorconfig](http://editorconfig.org)
@@ -129,7 +131,12 @@ let g:ctrlp_cmd = 'CtrlP'
 "colorscheme sierra
 "colorscheme kalisi
 "colorscheme solarized
-colorscheme summerfruit256
+"colorscheme summerfruit256
+" Recomendado por el tema night-owl
+if (has("termguicolors"))
+ set termguicolors
+endif
+colorscheme night-owl
 "set background=dark
 set background=light
 
