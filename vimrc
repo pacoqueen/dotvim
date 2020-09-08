@@ -60,7 +60,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'xolox/vim-misc'
     "ultisnips: snippets
     Plug 'SirVer/ultisnips'
-    "vim-snippets: algunos snippets "precocinados". Por defecto: <tab, ^j, ^k>
+    "vim-snippets: algunos snippets 'precocinados'. Por defecto: <tab, ^j, ^k>
     Plug 'honza/vim-snippets'
     "rainbow: Rainbow Parentheses Improved
     Plug 'luochen1990/rainbow'
@@ -71,9 +71,9 @@ call plug#begin('~/.vim/plugged')
     "vim-flake8: syntax and style (PEP8) checker. Por defecto: <F7>
     "Plug 'nvie/vim-flake8'
     "syntastic: No redimiensiona ventanas como el vim-flake8
-    "Plug 'scrooloose/syntastic'
-    "AsynchronousLintEngine: Al final el syntastic no me va con python3
-    Plug 'w0rp/ale'
+    Plug 'scrooloose/syntastic'
+    " asynchronous lint engine: Al final el syntastic no me va con python3
+    "Plug 'dense-analysis/ale'
     "vim-autopep8: Necesita tener instalado python-autopep8. Por defecto: <F8>
     Plug 'tell-k/vim-autopep8'
     "vim-signature: plugin para poner y ver las marcas. <mx, dmx, m,, m., ...>
@@ -159,6 +159,8 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " Avisos de flake8 en el lateral también:
 "let g:flake8_show_in_glutter = 1
 
+" F8 para autopep. Ya no se activa por defecto:
+autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
 " F9 para la lista de clases y a la izquierda
 nnoremap <silent> <F9> :TagbarToggle<CR>
 let g:tagbar_left = 1
@@ -197,28 +199,39 @@ cmap w!! w !sudo tee % > /dev/null
 "nnoremap <F12> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 " Asynchronous Lint Engine
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
+"let g:ale_set_loclist = 0
+"let g:ale_set_quickfix = 1
+"let g:ale_open_list = 1
 " Set this if you want to.
 " This can be useful if you are combining ALE with
 " some other plugin which sets quickfix errors, etc.
-let g:ale_keep_list_window_open = 1
-let g:ale_list_window_size = 4
+"let g:ale_keep_list_window_open = 1
+"let g:ale_list_window_size = 4
 " Dejo el F12 para ALE (:ALELint para ejecutar manualmente, :ALEToggle para
 " cambiar). Lo usaré para navegar por la QuickFix (:copen :cclose :cn :cp)
-nnoremap <F12> :ALEToggleBuffer<CR>:redraw<CR>:sleep 100m<CR>:cwindow<CR>
-nnoremap <A-F12> :ALELint<CR>
+"nnoremap <F12> :ALEToggleBuffer<CR>:redraw<CR>:sleep 100m<CR>:cwindow<CR>
+"nnoremap <A-F12> :ALELint<CR>
 nnoremap <expr> <silent> <S-F12> (&diff ? "]c" : ":cprev\<CR>")
 nnoremap <expr> <silent> <C-F12> (&diff ? "[c" : ":cnext\<CR>")
 " Python3 por defecto de una vez, para flake y pylint
 " let g:ale_linters = { 'python': ['flake8', ], }
-let g:ale_python_flake8_executable = 'python3'   " or 'python' for Python 2
-let g:ale_python_flake8_options = '-m flake8'
-let g:ale_python_flake8_use_global = 1
-let g:ale_python_pylint_executable = 'python3'
-let g:ale_python_pylint_options = '-m pylint'
-let g:ale_python_pylint_use_global = 1
+"let g:ale_python_flake8_executable = 'python3'   " or 'python' for Python 2
+"let g:ale_python_flake8_options = '-m flake8'
+"let g:ale_python_flake8_use_global = 1
+""let g:ale_python_pylint_executable = 'python3'
+"let g:ale_python_pylint_options = '-m pylint'
+"let g:ale_python_pylint_use_global = 1
+" Vuelvo a Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_python_exec = 'python3'
+let g:syntastic_python_checkers = ['python']
 " Python3 para isort también. Marcar en visual y Ctrl+I para reordenar
 " automáticamente o ejecutar :Isort
 let g:vim_isort_python_version = 'python3'
